@@ -25,7 +25,7 @@ const VideoSection: React.FC = () => {
                 aria-label="Play Video"
               >
                 <img 
-                  src="https://img.youtube.com/vi/Xkye7OaQFMU/maxresdefault.jpg" 
+                  src="https://img.youtube.com/vi/S3qfh6bfI74/maxresdefault.jpg" 
                   alt="Assista à demonstração da Neurix"
                   className="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-300"
                   loading="lazy"
@@ -44,7 +44,7 @@ const VideoSection: React.FC = () => {
               <iframe 
                 width="100%" 
                 height="100%" 
-                src="https://www.youtube.com/embed/Xkye7OaQFMU?si=LE-vFqgLTBjUmBIl&autoplay=1" 
+                src="https://www.youtube.com/embed/S3qfh6bfI74?autoplay=1" 
                 title="Demonstração Neurix Intelligence" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
