@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Neurix Intelligence | Clone seu melhor vendedor</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Performance: font-display swap evita bloqueio de renderização */
         @font-face {
             font-family: 'Inter';
             font-display: swap;
@@ -22,14 +24,20 @@
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
-        /* Otimização de Ruído: SVG Inline ultra-leve e estático */
+        /* Otimização de Performance: Camadas aceleradas por hardware */
+        .transform-gpu {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
         .noise-bg {
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
             opacity: 0.03;
             pointer-events: none;
-            will-change: opacity;
+            contain: strict;
         }
 
         .grid-bg {
@@ -37,47 +45,52 @@
                               linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 50px 50px;
             pointer-events: none;
+            contain: strict;
         }
 
-        /* Glassmorphism simplificado: Blur reduzido para poupar GPU mobile */
         .glass {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            will-change: transform, opacity;
+            will-change: transform;
         }
 
         .glow-btn {
             box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s ease;
             will-change: transform, box-shadow;
         }
 
-        /* Scroll Animations Otimizadas com will-change */
+        .glow-btn:hover {
+            transform: scale(1.03) translateZ(0);
+            box-shadow: 0 0 25px rgba(124, 58, 237, 0.5);
+        }
+
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            filter: blur(4px);
-            transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease-out;
+            transform: translate3d(0, 20px, 0);
+            filter: blur(8px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform, opacity, filter;
         }
 
         .reveal.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
             filter: blur(0);
         }
 
-        /* Redução de repintura em animações de pulso */
         .pulse-whatsapp {
-            animation: pulse-whatsapp-shadow 2s infinite;
+            animation: pulse-whatsapp-shadow 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             will-change: box-shadow;
         }
 
         @keyframes pulse-whatsapp-shadow {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-            70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
     </style>
